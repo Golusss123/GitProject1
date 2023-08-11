@@ -24,3 +24,27 @@ workflows:
   say-hello-workflow:
     jobs:
       - say-hello
+      
+      
+
+jobs:
+  test:
+    docker:
+      - image: node:14
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test
+
+# Add the store_test_results step
+# This step should be at the root level of the configuration
+# and outside of any jobs or workflows
+store_test_results:
+  path: /path/to/test/results # Specify the path to your test result files
+
